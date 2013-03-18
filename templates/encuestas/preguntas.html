@@ -6,7 +6,7 @@
 <div><button onclick="window.location.href='{% url encuestas.views.detail encuesta.id %}add'">Agregar Pregunta</button></div>
 {% if preguntas %}
     {% for pregunta in preguntas %}
-        <h1 class='preg_nombre'>{{ pregunta.pregunta }} <button onclick="window.location.href='{% url encuestas.views.pregunta_mover encuesta.id pregunta.id "ABAJO" %}'">Bajar</button>&nbsp;<button onclick="window.location.href='{% url encuestas.views.pregunta encuesta.id pregunta.id %}duplicar'">Duplicar</button>&nbsp;<button onclick="window.location.href='{% url encuestas.views.pregunta encuesta.id pregunta.id %}'">Modificar</button>&nbsp;<button onclick="if(confirm('¿Está seguro?')){window.location.href='{% url encuestas.views.pregunta_delete encuesta.id pregunta.id %}';}">Eliminar</button></h1>
+        <h1 class='preg_nombre'>{{ pregunta.pregunta }} {% if not forloop.first %}<button onclick="window.location.href='{% url encuestas.views.pregunta_mover encuesta.id pregunta.id "ARRIBA" %}'">Subir</button>&nbsp;{% endif %}{% if not forloop.last %}<button onclick="window.location.href='{% url encuestas.views.pregunta_mover encuesta.id pregunta.id "ABAJO" %}'">Bajar</button>&nbsp;{% endif %}<button onclick="window.location.href='{% url encuestas.views.pregunta encuesta.id pregunta.id %}duplicar'">Duplicar</button>&nbsp;<button onclick="window.location.href='{% url encuestas.views.pregunta encuesta.id pregunta.id %}'">Modificar</button>&nbsp;<button onclick="if(confirm('¿Está seguro?')){window.location.href='{% url encuestas.views.pregunta_delete encuesta.id pregunta.id %}';}">Eliminar</button></h1>
         {% show_respuestas pregunta %}
     {% endfor %}
 {% else %}

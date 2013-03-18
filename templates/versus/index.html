@@ -1,0 +1,11 @@
+<h1>Versus</h1>
+    <a href='{% url versus.views.editar None %}'>Crear versus</a>
+{% if versus %}
+    <ul>
+    {% for v in versus %}
+        <li>({{ v.id }}) {{ v.nombre }} - {{ v.publicacion }} - <button onclick='window.location.href="{% url versus.views.editar None %}"'>Modificar</button> - <button onclick='if(confirm("¿Está seguro?")){ window.location.href="{% url versus.views.delete v.id %}"; }'>Eliminar</button></li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No hay versus creados.</p>
+{% endif %}

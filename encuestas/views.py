@@ -101,6 +101,16 @@ def pregunta(request, encuesta_id, pregunta_id = None, accion = None):
     except ObjectDoesNotExist:
         raise Http404
 
+def respuesta_mover(request, encuesta_id, pregunta_id, respuesta_id, sentido):
+    try:
+        encuesta = Encuestas.objects.get(pk=encuesta_id)
+        pregunta = encuesta.preguntas_set.get(pk=pregunta_id)
+        respuesta = pregunta.respuestas_set.get(pk=respuesta_id)
+        pregunta.mover(respuesta,sentido)
+        return HttpResponseRedirect("/encuestas/%s" % (encuesta_id))
+    except ObjectDoesNotExist:
+        raise Http404
+
 def respuesta_delete(request, encuesta_id, pregunta_id, respuesta_id = None):
     try:
         encuesta = Encuestas.objects.get(pk=encuesta_id)

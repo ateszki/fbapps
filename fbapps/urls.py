@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.conf.urls import patterns, include, url
 from django.contrib.auth.views import login, logout
 
@@ -14,6 +15,7 @@ urlpatterns = patterns('',
     (r'^accounts/logout/$', logout),
     (r'^accounts/register/$', 'registration.views.register'),
 
+    #encuestas
     url(r'^encuestas/$','encuestas.views.index'),
     url(r'^encuestas/(?P<encuesta_id>\d+)/$','encuestas.views.detail'),
     url(r'^encuestas/add$','encuestas.views.encuesta_crear'),
@@ -25,10 +27,20 @@ urlpatterns = patterns('',
     url(r'^encuestas/(?P<encuesta_id>\d+)/(?P<pregunta_id>\d+)/add/$','encuestas.views.respuesta'),
     url(r'^encuestas/(?P<encuesta_id>\d+)/(?P<pregunta_id>\d+)(:?/(?P<respuesta_id>\d+))?/$','encuestas.views.respuesta'),
     url(r'^encuestas/(?P<encuesta_id>\d+)/(?P<pregunta_id>\d+)/(?P<respuesta_id>\d+)/delete/$','encuestas.views.respuesta_delete'),
+    url(r'^encuestas/(?P<encuesta_id>\d+)/(?P<pregunta_id>\d+)/(?P<respuesta_id>\d+)/mover/(?P<sentido>\w+)/$','encuestas.views.respuesta_mover'),
     url(r'^encuestas/(?P<encuesta_id>\d+)/(?P<pregunta_id>\d+)/(?P<accion>\w+)/$','encuestas.views.pregunta'),
+    
+    #versus
+    url(r'^versus/$','versus.views.index'),
+    url(r'^versus/edit(:?/(?P<versus_id>\d+))?/$','versus.views.editar'),
+    url(r'^versus/delete/(?P<versus_id>\d+)/$','versus.views.delete'),
+    
     # Uncomment the admin/doc line below to enable admin documentation:
     url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
 
     # Uncomment the next line to enable the admin:
     url(r'^admin/', include(admin.site.urls)),
+    
+    # media files
+    url (r'^media/(?P<path>.*)$', 'django.views.static.serve', {'document_root': settings.MEDIA_ROOT}),
 )
