@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% load respuestas_tag %}
+{% block title %}{{ encuesta.nombre }} - {{ block.super }}{% endblock %}
+{% block content %}
+<h2>Encuesta: {{ encuesta.nombre }}</h2>
+<div><button onclick="window.location.href='{% url encuestas.views.detail encuesta.id %}add'">Agregar Pregunta</button></div>
+{% if preguntas %}
+    {% for pregunta in preguntas %}
+        <h1 class='preg_nombre'>{{ pregunta.pregunta }} <button onclick="window.location.href='{% url encuestas.views.pregunta_mover encuesta.id pregunta.id "ABAJO" %}'">Bajar</button>&nbsp;<button onclick="window.location.href='{% url encuestas.views.pregunta encuesta.id pregunta.id %}duplicar'">Duplicar</button>&nbsp;<button onclick="window.location.href='{% url encuestas.views.pregunta encuesta.id pregunta.id %}'">Modificar</button>&nbsp;<button onclick="if(confirm('¿Está seguro?')){window.location.href='{% url encuestas.views.pregunta_delete encuesta.id pregunta.id %}';}">Eliminar</button></h1>
+        {% show_respuestas pregunta %}
+    {% endfor %}
+{% else %}
+    <p>No hay preguntas para la encuesta.</p>
+{% endif %}
+{% endblock content %}

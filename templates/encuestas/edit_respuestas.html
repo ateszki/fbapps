@@ -1,0 +1,18 @@
+<form action="" method="post">{% csrf_token %}
+    {# Include the hidden fields #}
+    {% for hidden in form.hidden_fields %}
+    {{ hidden }}
+    {% endfor %}
+    {# Include the visible fields #}
+    {% for field in form.visible_fields %}
+        <div class="fieldWrapper">
+            {% if field.name = 'pregunta' %}
+              {{ form.pregunta.as_hidden }}
+            {% else %}
+              {{ field.errors }}
+              {{ field.label_tag }}: {{ field }}
+            {% endif %}
+        </div>
+    {% endfor %}
+    <p><input type="submit" value="Guardar" /></p>
+</form>

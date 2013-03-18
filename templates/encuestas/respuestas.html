@@ -1,0 +1,10 @@
+        <ul>
+{% if respuestas %}
+        {% for r in respuestas %}
+            <li>{{ r.respuesta }} <button onclick="if(confirm('¿Está seguro?')){window.location.href='{% url encuestas.views.respuesta_delete encuesta.id pregunta.id r.id %}';}">Eliminar</button></li>
+        {% endfor %}
+{% else %}
+    <li>No hay respuestas para la pregunta.</li>
+{% endif %}
+        </ul>
+    <div><button onclick="window.location.href='{% url encuestas.views.respuesta encuesta_id=encuesta.id pregunta_id=pregunta.id %}add'">Agregar Respuesta</button></div>

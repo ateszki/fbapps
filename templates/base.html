@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <title>{% block title %}FBAPPS{% endblock title %}</title>
+    {% block css %}
+        <link rel="stylesheet" href="{{ STATIC_URL }}css/encuestas.css" type="text/css">
+    {% endblock css %}
+    {% block js %}
+        <script type='text/javascript' src='//code.jquery.com/jquery-1.9.1.js'></script>
+    {% endblock js %}
+</head>
+
+<body>
+    <div id="sidebar">
+        <div id="usuario">
+            {% block usuario %}
+            Login
+            {% endblock %}
+        </div>
+        {% block sidebar %}
+        <ul>
+            <li><a href="/">Home</a></li>
+            <li><a href="{% url encuestas.views.index %}">Encuestas</a></li>
+        </ul>
+        {% endblock %}
+    </div>
+
+    <div id="content">
+        {% block content %}{% endblock %}
+    </div>
+</body>
+</html>

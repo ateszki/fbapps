@@ -1,0 +1,11 @@
+    <h1>Encuestas</h1>
+    <a href='{% url encuestas.views.encuesta_crear %}'>Crear encuesta</a>
+{% if encuestas %}
+    <ul>
+    {% for e in encuestas %}
+        <li>{{ e.nombre }} - {{ e.publicacion }} - <a href='{% url encuestas.views.encuesta_editar e.id %}'>Modificar</a> - <a href='{% url encuestas.views.detail e.id %}'>Preguntas</a></li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No hay encuestas creadas.</p>
+{% endif %}
